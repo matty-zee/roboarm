@@ -62,7 +62,7 @@ def inverseKinematics(l0,l1,l2,x_e_target,y_e_target,z_e_target):
     
 	# Obtain end effector position x_e, y_e for current thetas: 
 	j1_x, j1_y, j1_z, j2_x, j2_y, j2_z, e_x, e_y, e_z = forwardKinematics(phi, theta0, theta1, theta2, l0, l1, l2)
-	alpha = 0.1
+	alpha = 0.01
 	dist = 1000
 	i=0
 	
@@ -109,8 +109,9 @@ def inverseKinematics(l0,l1,l2,x_e_target,y_e_target,z_e_target):
 
 def drawRobot3D(x_1,y_1,z_1,x_2,y_2,z_2,x_e,y_e,z_e, l0, l1, l2):
 	x_0, y_0, z_0 = 0, 0, 0 
-	ax.set_xlim([0, np.sum([l0,l1,l2])])
-	ax.set_ylim([0, np.sum([l0,l1,l2])])
+	ax.set_xlim([-np.sum([l0,l1,l2]), np.sum([l0,l1,l2])])
+	ax.set_ylim([-np.sum([l0,l1,l2]), np.sum([l0,l1,l2])])
+	ax.set_zlim([-np.sum([l0,l1,l2]), np.sum([l0,l1,l2])])
 	ax.plot3D([x_0, x_1, x_2, x_e], [y_0, y_1, y_2, y_e], [z_0, z_1, z_2, z_e], lw=4.5)
 	ax.scatter3D([x_0, x_1, x_2, x_e], [y_0, y_1, y_2, y_e], [z_0, z_1, z_2, z_e], color='r')
 	plt.pause(0.1)
@@ -122,9 +123,9 @@ theta2 = 0
 l0 = 1
 l1 = 1
 l2 = 1
-x_e_target = 1
+x_e_target = 2
 y_e_target = 1
-z_e_target = 1
+z_e_target = 2
 
 ax = plt.axes(projection='3d')
 inverseKinematics(l0,l1,l2,x_e_target,y_e_target,z_e_target)
